@@ -231,3 +231,47 @@ module MyAppOtherNamespace
     attribute :name
   end
 end
+
+module Api
+  module V1
+    module MyApp
+      class UserSerializer
+        include JSONAPI::Serializer
+
+        attribute :name
+        def meta
+          { serializer: 'Api::V1::MyApp::UserSerializer' }
+        end
+      end
+
+      class PostSerializer
+        include JSONAPI::Serializer
+
+        attribute :title
+        attribute :long_content do
+          object.body
+        end
+
+        has_one :author
+        has_many :long_comments
+
+        def meta
+          { serializer: 'Api::V1::MyApp::PostSerializer' }
+        end
+      end
+
+      class LongCommentSerializer
+        include JSONAPI::Serializer
+
+        attribute :body
+        has_one :user
+
+        # Circular-reference back to post.
+        has_one :post
+        def meta
+          { serializer: 'Api::V1::MyApp::LongCommentSerializer' }
+        end
+      end
+    end
+  end
+end
