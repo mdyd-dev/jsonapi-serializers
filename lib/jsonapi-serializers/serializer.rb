@@ -240,6 +240,7 @@ module JSONAPI
       options[:is_collection] = options.delete('is_collection') || options[:is_collection] || false
       options[:include] = options.delete('include') || options[:include]
       options[:serializer] = options.delete('serializer') || options[:serializer]
+      options[:namespace] = options.delete('namespace') || options[:namespace]
       options[:context] = options.delete('context') || options[:context] || {}
       options[:skip_collection_check] = options.delete('skip_collection_check') || options[:skip_collection_check] || false
       options[:base_url] = options.delete('base_url') || options[:base_url]
@@ -257,6 +258,7 @@ module JSONAPI
       passthrough_options = {
         context: options[:context],
         serializer: options[:serializer],
+        namespace: options[:namespace],
         include: includes,
         base_url: options[:base_url]
       }
