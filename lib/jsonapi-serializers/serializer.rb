@@ -221,6 +221,7 @@ module JSONAPI
         if options[:namespace]
           return "#{options[:namespace]}::#{object.jsonapi_serializer_class_name}"
         else
+          return object.jsonapi_serializer_class_name.to_s
         end
       end
       if options[:namespace]
